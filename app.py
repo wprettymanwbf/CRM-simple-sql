@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime, timezone
 import os
 
 app = Flask(__name__)
@@ -17,8 +17,8 @@ class Customer(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     phone = db.Column(db.String(20))
     company = db.Column(db.String(200))
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
     notes = db.relationship('Note', backref='customer', lazy=True, cascade='all, delete-orphan')
 
     def to_dict(self):
@@ -40,7 +40,7 @@ class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     def to_dict(self):
         """Convert note object to dictionary"""
@@ -126,7 +126,7 @@ def update_customer(customer_id):
     customer.email = data['email']
     customer.phone = data.get('phone', '')
     customer.company = data.get('company', '')
-    customer.updated_at = datetime.utcnow()
+    customer.updated_at = datetime.now(timezone.utc)
     
     db.session.commit()
     
