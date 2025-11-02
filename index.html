@@ -521,7 +521,7 @@
             }
 
             getNextId() {
-                let counter = parseInt(localStorage.getItem(this.counterKey) || '0');
+                let counter = parseInt(localStorage.getItem(this.counterKey) || '0', 10);
                 counter++;
                 localStorage.setItem(this.counterKey, counter.toString());
                 return counter;
