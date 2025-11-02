@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple CRM System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Simple CRM System</h1>
+            <p class="subtitle">Customer Relationship Management</p>
+        </header>
+
+        <div class="main-content">
+            <div class="toolbar">
+                <button id="addCustomerBtn" class="btn btn-primary">+ Add New Customer</button>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search customers...">
+                </div>
+            </div>
+
+            <div id="customerList" class="customer-list">
+                <!-- Customer cards will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Customer Modal -->
+    <div id="customerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Add New Customer</h2>
+            <form id="customerForm">
+                <input type="hidden" id="customerId">
+                
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" id="company">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Customer Details Modal -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content modal-large">
+            <span class="close">&times;</span>
+            <div id="customerDetails">
+                <!-- Customer details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
