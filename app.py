@@ -182,7 +182,9 @@ def init_db():
 
 if __name__ == '__main__':
     # Initialize database if it doesn't exist
-    if not os.path.exists('crm.db'):
+    if not os.path.exists('instance/crm.db'):
         init_db()
     
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Get debug mode from environment variable, default to False for production safety
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() in ('true', '1', 't')
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)

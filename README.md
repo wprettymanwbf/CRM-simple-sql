@@ -39,6 +39,7 @@ pip install -r requirements.txt
 
 ## 🚀 Running the Application
 
+### Production Mode (Recommended)
 1. Start the Flask server:
 ```bash
 python app.py
@@ -48,6 +49,17 @@ python app.py
 ```
 http://localhost:5000
 ```
+
+### Development Mode (with debug enabled)
+If you need debug mode for development:
+```bash
+export FLASK_DEBUG=True  # On Linux/Mac
+# or
+set FLASK_DEBUG=True     # On Windows
+python app.py
+```
+
+**Note:** Debug mode should never be enabled in production as it can pose security risks.
 
 The database will be automatically initialized on first run.
 
